@@ -1,0 +1,28 @@
+Service install:
+    > python setup.py install
+
+Service start:
+        > mirroring-kafka run --src=<source> --dest=<destination> --verbose
+    or
+        > python -m mirroring_kafka run --src=<source> --dest=<destination> --verbose
+
+Environment must be set for source and destination:
+    <source>_KAFKA_SERVER=
+    <source>_KAFKA_TOPIC=
+    <source>_KAFKA_USERNAME=
+    <source>_KAFKA_PASSWORD=
+    <source>_KAFKA_SASL_MECHANISM=
+    <source>_KAFKA_SECURITY_PROTOCOL=
+    <source>_KAFKA_CA_FILE=
+
+    <destination>_KAFKA_SERVER=
+    <destination>_KAFKA_TOPIC=
+    <destination>_KAFKA_USERNAME=
+    <destination>_KAFKA_PASSWORD=
+    <destination>_KAFKA_SASL_MECHANISM=
+    <destination>_KAFKA_SECURITY_PROTOCOL=
+    <destination>_KAFKA_CA_FILE=
+
+if values are not set, then value None will be used
+
+Service mirroring kafka will read messages 10 seconds or until 1000 messages are read from source and write them to destination
