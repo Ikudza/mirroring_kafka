@@ -7,6 +7,9 @@ import aiokafka.helpers
 from mirroring_kafka.logger import log
 
 
+Past = list[tuple[int, bytes]]
+
+
 class KafkaSettings(NamedTuple):
     servers: str
     topic: str
@@ -40,7 +43,7 @@ async def get_consumer(
         ssl_context=ssl_context,
         sasl_plain_username=settings.username,
         sasl_plain_password=settings.password,
-        enable_auto_commit=True,
+        enable_auto_commit=False,
         auto_offset_reset='earliest',
         max_poll_records=100,
     )
