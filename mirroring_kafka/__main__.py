@@ -14,6 +14,8 @@ Environment:
     <source>_KAFKA_SASL_MECHANISM          Kafka SASL mechanism (SASL_PLAINTEXT or SASL_SSL).
     <source>_KAFKA_SECURITY_PROTOCOL       Kafka security protocol.
     <source>_KAFKA_CA_FILE                 Kafka CA file path.
+    <source>_KAFKA_CERT_FILE               Kafka file patch for auth
+    <source>_KAFKA_KEY_FILE                Kafka file patch for auth
 
     <destination>_KAFKA_SERVER             Kafka server destination.
     <destination>_KAFKA_TOPIC              Kafka topic destination.
@@ -22,6 +24,8 @@ Environment:
     <destination>_KAFKA_SASL_MECHANISM     Kafka SASL mechanism (SASL_PLAINTEXT or SASL_SSL).
     <destination>_KAFKA_SECURITY_PROTOCOL  Kafka security protocol.
     <destination>_KAFKA_CA_FILE            Kafka CA file path.
+    <destination>_KAFKA_CERT_FILE          Kafka file patch for auth
+    <destination>_KAFKA_KEY_FILE           Kafka file patch for auth
 
 """
 import asyncio
@@ -60,6 +64,8 @@ def main():
         sasl_mechanism=os.environ.get(f"{args['--src'].upper()}_KAFKA_SASL_MECHANISM"),
         security_protocol=os.environ.get(f"{args['--src'].upper()}_KAFKA_SECURITY_PROTOCOL"),
         ca_file=os.environ.get(f"{args['--src'].upper()}_KAFKA_CA_FILE"),
+        cert_file=os.environ.get(f"{args['--src'].upper()}_KAFKA_CERT_FILE"),
+        key_file=os.environ.get(f"{args['--src'].upper()}_KAFKA_KEY_FILE"),
     )
     dest_kafka_settings = utils.KafkaSettings(
         servers=os.environ.get(f"{args['--dest'].upper()}_KAFKA_SERVER"),
@@ -69,6 +75,8 @@ def main():
         sasl_mechanism=os.environ.get(f"{args['--dest'].upper()}_KAFKA_SASL_MECHANISM"),
         security_protocol=os.environ.get(f"{args['--dest'].upper()}_KAFKA_SECURITY_PROTOCOL"),
         ca_file=os.environ.get(f"{args['--dest'].upper()}_KAFKA_CA_FILE"),
+        cert_file=os.environ.get(f"{args['--dest'].upper()}_KAFKA_CERT_FILE"),
+        key_file=os.environ.get(f"{args['--dest'].upper()}_KAFKA_KEY_FILE"),
     )
     if args.get('run'):
         stopping = asyncio.Event()
