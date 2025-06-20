@@ -38,16 +38,15 @@ async def run_mirroring(
                         count['sent'] += 1
                         offsets[pt] = msg.offset + 1
 
+            log.debug({
+                "message": 'Mirroring done',
+                "read": count["read"],
+                "sent": count["sent"],
+                "skipped": count["skipped"],
+                "src_topic": src_kafka_settings.topic,
+                "dest_topic": dest_kafka_settings.topic,
+            })
             if offsets:
-                # say only if we have offset something
-                log.debug({
-                    "message": 'Mirroring done',
-                    "read": count["read"],
-                    "sent": count["sent"],
-                    "skipped": count["skipped"],
-                    "src_topic": src_kafka_settings.topic,
-                    "dest_topic": dest_kafka_settings.topic,
-                })
                 await src_consumer.commit(offsets)
 
         await asyncio.sleep(5)
