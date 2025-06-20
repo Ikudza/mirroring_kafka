@@ -31,21 +31,11 @@ async def get_consumer(
     if settings.ca_file:
         ssl_context = aiokafka.helpers.create_ssl_context(
             cafile=settings.ca_file,
+            certfile=settings.cert_file,
+            keyfile=settings.key_file,
         )
     else:
         ssl_context = None
-
-    if settings.cert_file and settings.key_file:
-        if ssl_context:
-            ssl_context.load_cert_chain(
-                certfile=settings.cert_file,
-                keyfile=settings.key_file,
-            )
-        else:
-            ssl_context = aiokafka.helpers.create_ssl_context(
-                certfile=settings.cert_file,
-                keyfile=settings.key_file,
-            )
 
     consumer = aiokafka.AIOKafkaConsumer(
         *topics,
@@ -77,21 +67,13 @@ async def get_producer(
 ) -> AsyncIterator[aiokafka.AIOKafkaConsumer]:
 
     if settings.ca_file:
-        ssl_context = aiokafka.helpers.create_ssl_context(cafile=settings.ca_file)
+        ssl_context = aiokafka.helpers.create_ssl_context(
+            cafile=settings.ca_file,
+            certfile=settings.cert_file,
+            keyfile=settings.key_file,
+        )
     else:
         ssl_context = None
-
-    if settings.cert_file and settings.key_file:
-        if ssl_context:
-            ssl_context.load_cert_chain(
-                certfile=settings.cert_file,
-                keyfile=settings.key_file,
-            )
-        else:
-            ssl_context = aiokafka.helpers.create_ssl_context(
-                certfile=settings.cert_file,
-                keyfile=settings.key_file,
-            )
 
     producer = aiokafka.AIOKafkaProducer(
         bootstrap_servers=settings.servers,
