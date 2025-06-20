@@ -50,7 +50,7 @@ async def get_consumer(
     consumer = aiokafka.AIOKafkaConsumer(
         *topics,
         bootstrap_servers=settings.servers,
-        group_id='mirroring_kafka_vq3',
+        group_id=f'mirroring_kafka_{settings.topic}_vq1',
         fetch_max_wait_ms=1000,
         sasl_mechanism=settings.sasl_mechanism,
         security_protocol=settings.security_protocol,
