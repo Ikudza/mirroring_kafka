@@ -71,6 +71,7 @@ async def get_producer(
             cafile=settings.ca_file,
             certfile=settings.cert_file,
             keyfile=settings.key_file,
+            password=settings.password,
         )
     else:
         ssl_context = None
