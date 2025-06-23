@@ -1,3 +1,4 @@
+import ssl
 from contextlib import asynccontextmanager
 from typing import NamedTuple, AsyncIterator
 
@@ -73,6 +74,7 @@ async def get_producer(
             keyfile=settings.key_file,
             password=settings.password,
         )
+        ssl_context.verify_flags = ssl.VERIFY_DEFAULT
     else:
         ssl_context = None
 
